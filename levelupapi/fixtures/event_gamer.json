@@ -1,0 +1,42 @@
+[
+  {
+      "model": "levelupapi.eventgamer",
+      "pk": 1,
+      "fields": {
+          "gamer": 1,
+          "event": 1
+      }
+  },
+  {
+      "model": "levelupapi.eventgamer",
+      "pk": 2,
+      "fields": {
+          "gamer": 2,
+          "event": 2
+      }
+  },
+  {
+      "model": "levelupapi.eventgamer",
+      "pk": 3,
+      "fields": {
+          "gamer": 3,
+          "event": 3
+      }
+  },
+  {
+      "model": "levelupapi.eventgamer",
+      "pk": 4,
+      "fields": {
+          "gamer": 4,
+          "event": 4
+      }
+  },
+  {
+      "model": "levelupapi.eventgamer",
+      "pk": 5,
+      "fields": {
+          "gamer": 5,
+          "event": 5
+      }
+  }
+]
