@@ -57,6 +57,10 @@ def register_user(request):
     data = {
         'id': user.id,
         'uid': user.uid,
-        'bio': user.bio
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'photo': user.photo,
+        'email': user.email,
+        'admin': user.admin
     }
     return Response(data)
