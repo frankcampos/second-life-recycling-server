@@ -43,4 +43,4 @@ Follow these steps to set up and run the project:
 
 4. Verify the fixtures were loaded correctly
     ``` sh
-    CTRL + SHIFT + P open SQllite: Database and verify the dat is in the explorer 
+    CTRL + SHIFT + P to open SQllite: Database and verify the data is in the explorer 
