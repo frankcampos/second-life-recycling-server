@@ -27,4 +27,5 @@ class ShoppingCartView(ViewSet):
     shopping_carts = Shopping_Cart.objects.all()
     serializer = CartSerializer(shopping_carts, many=True)
     return Response(serializer.data)
+  
             
