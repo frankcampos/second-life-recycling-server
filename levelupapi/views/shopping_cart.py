@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from levelupapi.models import Shopping_Cart
+from levelupapi.models import Shopping_Cart, User, Recyclable_Items
 
 class CartSerializer(serializers.ModelSerializer):
   """JSON serializer for shopping carts"""
@@ -28,4 +28,20 @@ class ShoppingCartView(ViewSet):
     serializer = CartSerializer(shopping_carts, many=True)
     return Response(serializer.data)
   
+  def create(self, request):
+    """Handle POST operations"""
+    user = User.objects.get(uid=request.data["user_id"])
+    item = Recyclable_Items.objects.get(pk=request.data["item_id"])
+
+    cart = Shopping_Cart.objects.create(
+      user_id=user,
+      item_id=item,
+      price=request.data["price"],
+      status=request.data["status"],
+      total=request.data["total"],
+      created_at=request.data["created_at"],
+      updated_at=request.data["updated_at"],
             
+    )
+    serializer = CartSerializer(cart)
+    return Response(serializer.data)
