@@ -1,0 +1,16 @@
+[
+    {
+        "model": "second_life_recycling_api.vendors",
+        "fields": {
+            "vendor_name": "Habitat For Humanity",
+            "vendor_address": "1234 Main St, Anytown, USA"
+        }
+    },
+    {
+        "model": "second_life_recycling_api.vendors",
+        "fields": {
+            "vendor_name": "Second Life Recycling",
+            "vendor_address": "354 West Main St, Anytown, USA"
+        }
+    }
+]

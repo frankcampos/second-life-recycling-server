@@ -1,4 +1,4 @@
-"""levelup URL Configuration
+"""second_life_recycling URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from levelupapi.views import check_user, register_user, ShoppingCartView
+from second_life_recycling_api.views import check_user, register_user, ShoppingCartView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'cart', ShoppingCartView, 'cart')

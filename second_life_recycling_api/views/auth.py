@@ -1,4 +1,4 @@
-from levelupapi.models import User
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -14,20 +14,14 @@ def check_user(request):
 
     # Use the built-in authenticate method to verify
     # authenticate returns the user object or None if no user is found
-    user = User.objects.filter(uid=uid).first()
+    gamer = Gamer.objects.filter(uid=uid).first()
 
     # If authentication was successful, respond with their token
-    if user is not None:
+    if gamer is not None:
         data = {
-            'id': user.id,
-            'first_name': user.first_name,
-            'last_name': user.last_name,
-            'photo': user.photo,
-            'email': user.email,
-            'uid': user.uid,
-            'admin': user.admin
-
-
+            'id': gamer.id,
+            'uid': gamer.uid,
+            'bio': gamer.bio
         }
         return Response(data)
     else:
@@ -45,18 +39,15 @@ def register_user(request):
     '''
 
     # Now save the user info in the levelupapi_gamer table
-    user = User.objects.create(
-        first_name=request.data['first_name'],
-        last_name=request.data['last_name'],
-        photo=request.data['photo'],
-        email=request.data['email'],
+    gamer = Gamer.objects.create(
+        bio=request.data['bio'],
         uid=request.data['uid']
     )
 
     # Return the gamer info to the client
     data = {
-        'id': user.id,
-        'uid': user.uid,
-        'bio': user.bio
+        'id': gamer.id,
+        'uid': gamer.uid,
+        'bio': gamer.bio
     }
     return Response(data)

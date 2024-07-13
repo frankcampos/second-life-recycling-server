@@ -1,0 +1,44 @@
+[
+    {
+            "model": "second_life_recycling_api.recyclable_items",
+            "fields": {
+                    "item_name": "Chandelier",
+                    "vendor_id": "1",
+                    "price": "30",
+                    "image_url": "https://dmrestore.org/cdn/shop/files/7DFCD56A-655A-4F21-8321-BA9EA59AD866.jpg?v=1719610491&width=1946",
+                    "user_id": 1,
+                    "description": "Chandelier with 8 bulbs",
+                    "catergory_id": 1,
+                    "created_at": "2024-12-07T12:00:00Z",
+                    "updated_at": "2024-12-07T12:30:00Z"
+            }
+    },
+    {
+        "model": "second_life_recycling_api.recyclable_items",
+        "fields": {
+                "item_name": "Double Door",
+                "vendor_id": "2",
+                "price": "150",
+                "image_url": "https://www.habitatalamance.org/wp-content/uploads/2021/06/front-door-764x1024.jpg",
+                "user_id": 1,
+                "description": "Blue double door with 4 glass windows",
+                "catergory_id": 2,
+                "created_at": "2024-12-07T01:00:00Z",
+                "updated_at": "2024-12-07T01:30:00Z"
+        }
+    },
+    {
+        "model": "second_life_recycling_api.recyclable_items",
+        "fields": {
+                "item_name": "Sofa",
+                "vendor_id": "1",
+                "price": "200",
+                "image_url": "https://preview.redd.it/9jsckuut54m61.jpg?width=4032&format=pjpg&auto=webp&s=13c163e46f3b6f63eb551d9e60b8fd818ded96c6",
+                "user_id": 1,
+                "description": "Grey sofa with 3 seats",
+                "catergory_id": 3,
+                "created_at": "2024-12-07T01:00:00Z",
+                "updated_at": "2024-12-07T01:30:00Z"
+        }
+    }
+]
