@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'levelupapi',
+    'second_life_recycling_api',
 ]
 
 # THIS IS NEW

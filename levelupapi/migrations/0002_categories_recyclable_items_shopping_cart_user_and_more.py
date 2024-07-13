@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ("image_url", models.CharField(max_length=100)),
                 ("user_id", models.IntegerField()),
                 ("description", models.CharField(max_length=100)),
-                ("catergory_id", models.IntegerField()),
+                ("category", models.ForeignKey(Category, on_delete=models.CASCADE)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
             ],
