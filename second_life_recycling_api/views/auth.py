@@ -1,4 +1,5 @@
 
+from second_life_recycling_api.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -14,14 +15,20 @@ def check_user(request):
 
     # Use the built-in authenticate method to verify
     # authenticate returns the user object or None if no user is found
-    gamer = Gamer.objects.filter(uid=uid).first()
+    user = User.objects.filter(uid=uid).first()
 
     # If authentication was successful, respond with their token
-    if gamer is not None:
+    if user is not None:
         data = {
-            'id': gamer.id,
-            'uid': gamer.uid,
-            'bio': gamer.bio
+            'id': user.id,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'photo': user.photo,
+            'email': user.email,
+            'uid': user.uid,
+            'admin': user.admin
+
+
         }
         return Response(data)
     else:
@@ -39,15 +46,22 @@ def register_user(request):
     '''
 
     # Now save the user info in the levelupapi_gamer table
-    gamer = Gamer.objects.create(
-        bio=request.data['bio'],
+    user = User.objects.create(
+        first_name=request.data['first_name'],
+        last_name=request.data['last_name'],
+        photo=request.data['photo'],
+        email=request.data['email'],
         uid=request.data['uid']
     )
 
     # Return the gamer info to the client
     data = {
-        'id': gamer.id,
-        'uid': gamer.uid,
-        'bio': gamer.bio
+        'id': user.id,
+        'uid': user.uid,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'photo': user.photo,
+        'email': user.email,
+        'admin': user.admin
     }
     return Response(data)
