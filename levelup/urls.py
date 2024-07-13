@@ -18,11 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from levelupapi.views import check_user, register_user
+from levelupapi.views import check_user, register_user, ShoppingCartView
 
 router = routers.DefaultRouter(trailing_slash=False)
-
-
+router.register(r'cart', ShoppingCartView, 'cart')
 urlpatterns = [
     path('', include(router.urls)),
     path("admin/", admin.site.urls),
