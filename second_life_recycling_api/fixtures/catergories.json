@@ -1,0 +1,20 @@
+[
+ {
+    "model": "second_life_recycling_api.categories",
+    "fields": {
+        "category_name": "Lighting"
+    }
+ }, 
+ {
+    "model": "second_life_recycling_api.categories",
+    "fields": {
+        "category_name": "Doors"
+    }
+ }, 
+ {
+    "model": "second_life_recycling_api.categories",
+    "fields": {
+        "category_name": "Furniture"
+    }
+ }         
+]
