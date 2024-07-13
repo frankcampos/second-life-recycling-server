@@ -1,9 +1,10 @@
 from django.db import models
+from .vendors import Vendors
 
 
 class Recyclable_Items(models.Model):
     item_name = models.CharField(max_length=100)
-    pickup_location = models.IntegerField()
+    vendor = models.ForeignKey(Vendors, on_delete=models.CASCADE, db_column='vendor_id', null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image_url = models.CharField(max_length=100)
     user_id = models.IntegerField()
