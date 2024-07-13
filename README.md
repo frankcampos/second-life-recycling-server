@@ -26,3 +26,17 @@ Follow these steps to set up and run the project:
     ```sh
     python manage.py runserver
     ```
+
+## TO LOAD FIXTURES 
+1. Create the database migrations:
+    ```sh
+    python manage.py makemigrations
+    ```
+
+2. Apply the migrations to the database:
+    ```sh
+    python manage.py migrate
+
+3. Load the fixtures into the database:
+    ```sh
+    python manage.py loaddata fixture_file_name.json
