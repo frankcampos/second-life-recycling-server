@@ -40,3 +40,7 @@ Follow these steps to set up and run the project:
 3. Load the fixtures into the database:
     ```sh
     python manage.py loaddata fixture_file_name.json
+
+4. Verify the fixtures were loaded correctly
+    ``` sh
+    CTRL + SHIFT + P open SQllite: Database and verify the dat is in the explorer 
