@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class User(models.Model):
     first_name = models.CharField(max_length=100)
@@ -7,3 +8,5 @@ class User(models.Model):
     email = models.CharField(max_length=100)
     uid = models.CharField(max_length=50)
     admin = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=datetime.now)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
