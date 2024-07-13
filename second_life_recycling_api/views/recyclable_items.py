@@ -2,8 +2,10 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
+from django.db import models
 from datetime import datetime
 from second_life_recycling_api.models import Recyclable_Items, User
+from second_life_recycling_api.views.auth import check_user 
 
 class RecyclableItemsSerializer(serializers.ModelSerializer):
     """JSON serializer for Recyclable Items types"""
@@ -38,17 +40,15 @@ class RecyclableItems(ViewSet):
         return Response(serializer.data)
         
     def create(self, request):
-        uid = request.data["userId"]
-        user, created = User.objects.get_or_create(uid=uid)
-       
+        user_id = check_user(request.data.get("id", None))
+        user, created = User.objects.get_or_create(id=user_id) 
         recyclable_item = Recyclable_Items.objects.create(
             item_name=request.data["item_name"],
             vendor=request.data["vendor"],
             price=request.data["price"],
             image_url=request.data["image_url"],
             category=request.data["category"],
-            created_at = datetime.now(),
-            updated_at = datetime.now()
+            userId=user
         )
         serializer = RecyclableItemsSerializer(recyclable_item)
         return Response(serializer.data)
