@@ -10,7 +10,7 @@ class CartSerializer(serializers.ModelSerializer):
   class Meta:
     model = Shopping_Cart
     fields = ('user_id', 'item_id', 'price', 'status', 'total', 'created_at', 'updated_at')
-
+    depth = 1
 class ShoppingCartView(ViewSet):
   """Shopping cart view"""
   
