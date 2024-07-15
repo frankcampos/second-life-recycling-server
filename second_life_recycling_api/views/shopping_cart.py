@@ -17,9 +17,12 @@ class ShoppingCartView(ViewSet):
 
   def retrieve(self, request, pk):
     """Handle GET requests for single game type"""
-    shopping_cart = Shopping_Cart.objects.get(pk=pk)
-    serializer = CartSerializer(shopping_cart)
-    return Response(serializer.data)
+    try:
+      shopping_cart = Shopping_Cart.objects.get(pk=pk)
+      serializer = CartSerializer(shopping_cart)
+      return Response(serializer.data)
+    except Shopping_Cart.DoesNotExist as ex:
+      return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
 
   def list(self, request):
@@ -30,12 +33,12 @@ class ShoppingCartView(ViewSet):
   
   def create(self, request):
     """Handle POST operations"""
-    user = User.objects.get(uid=request.data["user_id"])
-    item = Recyclable_Items.objects.get(pk=request.data["item_id"])
+    user_id = User.objects.get(uid=request.data["user_id"])
+    item_id = Recyclable_Items.objects.get(pk=request.data["item_id"])
 
     cart = Shopping_Cart.objects.create(
-      user_id=user,
-      item_id=item,
+      user_id=user_id,
+      item_id=item_id,
       price=request.data["price"],
       status=request.data["status"],
       total=request.data["total"],
@@ -45,6 +48,22 @@ class ShoppingCartView(ViewSet):
     )
     serializer = CartSerializer(cart)
     return Response(serializer.data)
+
+  def update(self, request, pk):
+    """Handle PUT requests for shopping cart"""
+    
+    cart = Shopping_Cart.objects.get(pk=pk) 
+    cart.price=request.data["price"],
+    cart.status=request.data["status"],
+    cart.total=request.data["total"],
+    cart.created_at=request.data["created_at"],
+    cart.updated_at=request.data["updated_at"]
+    
+    item_id = Recyclable_Items.objects.get(pk=request.data["item_id"])
+    cart.item_id = item_id
+    cart.save()
+    
+    return Response(None, status=status.HTTP_204_NO_CONTENT)
       
   def destroy(self, request, pk):
     """Handle DELETE requests for shopping cart"""
