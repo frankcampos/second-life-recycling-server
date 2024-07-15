@@ -45,3 +45,9 @@ class ShoppingCartView(ViewSet):
     )
     serializer = CartSerializer(cart)
     return Response(serializer.data)
+      
+  def destroy(self, request, pk):
+    """Handle DELETE requests for shopping cart"""
+    cart = Shopping_Cart.objects.get(pk=pk)
+    cart.delete()
+    return Response(None, status=status.HTTP_204_NO_CONTENT)
