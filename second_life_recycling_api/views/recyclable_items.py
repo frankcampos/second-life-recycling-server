@@ -66,18 +66,17 @@ class RecyclableItems(ViewSet):
         return Response(serializer.data)
      
     def update(self, request, pk):
-        """Handle PUT requests for a item"""
         recyclable_item = Recyclable_Items.objects.get(pk=pk)
         recyclable_item.item_name = request.data["item_name"]
-        vendors = Vendors.objects.get(pk=request.data.get("vendors"))
+        vendors = Vendors.objects.get(pk=request.data.get("vendors_id"))
         recyclable_item.vendor = vendors
         recyclable_item.price = request.data["price"]
         recyclable_item.image_url = request.data["image_url"]
         user_id = User.objects.get(pk=request.data.get("user_id"))
         recyclable_item.user_id = user_id
         recyclable_item.description = request.data["description"]
-        category = Categories.objects.get(pk=request.data.get("category"))
-        recyclable_item.category = category
+        categories = Categories.objects.get(pk=request.data.get("category_id"))
+        recyclable_item.category = categories
         recyclable_item.created_at = request.data["created_at"]
         recyclable_item.updated_at = request.data["updated_at"]
         recyclable_item.save()
@@ -93,4 +92,4 @@ class RecyclableItems(ViewSet):
             recyclable_item.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Recyclable_Items.DoesNotExist:
-            return Response({'message': 'Recyclable_Item not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'message': 'Recyclable Item not found.'}, status=status.HTTP_404_NOT_FOUND)

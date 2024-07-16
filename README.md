@@ -36,7 +36,7 @@ Follow these steps to set up and run the project:
 
 2. Start Python Interpreter:
     ```sh
-    CTRL + Shift + P and click Python: Select Interpriter
+    CTRL + Shift + P and click Python: Select Interpreter
     ```    
 
 3. Select the correct Python Interpreter:
@@ -80,7 +80,7 @@ Follow these steps to set up and run the project:
     click play to the right of item name
     ```
 
-## TO TEST ENDPOINTS
+## HOW TO CALL ENDPOINTS IN REACT
 1. Ensure that your .env file has the following items in it:
     ```sh
     NEXT_PUBLIC_FIREBASE_API_KEY=""
