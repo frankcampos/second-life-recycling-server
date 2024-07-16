@@ -75,11 +75,10 @@ Follow these steps to set up and run the project:
 4. Verify the fixtures were loaded correctly:
     ``` sh
     CTRL + SHIFT + P to open SQllite: 
-    ```
     Database and verify the data is in the explorer 
     click file_name_item_name
     click play to the right of item name
-
+    ```
 
 ## TO TEST ENDPOINTS
 1. Ensure that your .env file has the following items in it:
