@@ -93,7 +93,7 @@ Follow these steps to set up and run the project:
     const endpoint = process.env.NEXT_PUBLIC_DATABASE_URL;
     ```
 
-3. Promise fetch call shold look like this:
+3. Promise fetch call should look like this:
     ```sh
     fetch(`${endpoint}recyclable_items`, {
     ```        
