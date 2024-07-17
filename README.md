@@ -101,7 +101,7 @@ Follow these steps to set up and run the project:
     ```        
 
 # TESTING API'S IN POSTMAN
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/YOUR_COLLECTION_ID)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/29856352-e6ef773b-5bc3-45ff-8c87-3095b75d3bd9?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D29856352-e6ef773b-5bc3-45ff-8c87-3095b75d3bd9%26entityType%3Dcollection%26workspaceId%3D55dfd999-82a1-4a30-8d1b-1231bbd0adb1)
 
 # Tech / Framework Used
 
