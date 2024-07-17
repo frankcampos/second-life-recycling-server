@@ -4,6 +4,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from second_life_recycling_api.models import User, Shopping_Cart, Recyclable_Items
+from rest_framework.decorators import action
  
 class CartSerializer(serializers.ModelSerializer):
   """JSON serializer for shopping carts"""
@@ -70,3 +71,16 @@ class ShoppingCartView(ViewSet):
     cart = Shopping_Cart.objects.get(pk=pk)
     cart.delete()
     return Response(None, status=status.HTTP_204_NO_CONTENT)
+  
+  @action(methods=['post'], detail=True)
+  def add_to_cart(self, request, pk):
+      """post req for user to add item to cart"""
+        
+      gamer = Gamer.objects.get(uid=request.data["userId"])
+      event = Event.objects.get(pk=pk)
+      attendee = EventGamer.objects.create(
+         gamer = gamer,
+          event = event
+      )
+      
+      return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
