@@ -3,7 +3,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from second_life_recycling_api.models import User, Shopping_Cart, Recyclable_Items
+from second_life_recycling_api.models import User, Shopping_Cart, Recyclable_Items, CartItem
 from rest_framework.decorators import action
  
 class CartSerializer(serializers.ModelSerializer):
@@ -76,11 +76,11 @@ class ShoppingCartView(ViewSet):
   def add_to_cart(self, request, pk):
       """post req for user to add item to cart"""
         
-      gamer = Gamer.objects.get(uid=request.data["userId"])
-      event = Event.objects.get(pk=pk)
-      attendee = EventGamer.objects.create(
-         gamer = gamer,
-          event = event
+      cart = Shopping_Cart.objects.get(uid=request.data["userId"])
+      item = Recyclable_Items.objects.get(pk=pk)
+      cart_item = CartItem.objects.create(
+        cart = cart,
+        item = item
       )
       
-      return Response({'message': 'Gamer added'}, status=status.HTTP_201_CREATED)
+      return Response({'message': 'Item added to cart'}, status=status.HTTP_201_CREATED)
