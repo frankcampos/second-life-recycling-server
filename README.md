@@ -103,7 +103,7 @@ Follow these steps to set up and run the project:
 # TESTING API'S IN POSTMAN
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/YOUR_COLLECTION_ID)
 
-#Tech / Framework Used
+# Tech / Framework Used
 
 - [Design Doc](https://www.figma.com/board/kgmZK81UbmjyKW6mE7Ls4G/Second-Life-Recycling?node-id=0-1&t=5URe1Z2E3YmS0s5p-0)
 - [Data Flow Chart](https://dbdiagram.io/d/Copy-of-recycle_app_2_v-669082739939893daeb7a84b)
