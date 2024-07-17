@@ -1,5 +1,7 @@
-# Project Setup Instructions for first time installation
+# Second Life Recycling
+Few sites allow builders to list recycled items for sale at different facilities. These platforms are designed to connect sellers of recycled construction materials with potential buyers, fostering a marketplace for sustainable building practices.
 
+# Project Setup Instructions for first time installation
 Follow these steps to set up and run the project:
 
 1. Install the required packages using Pipenv:
@@ -93,7 +95,29 @@ Follow these steps to set up and run the project:
     const endpoint = process.env.NEXT_PUBLIC_DATABASE_URL;
     ```
 
-3. Promise fetch call shold look like this:
+3. Promise fetch call should look like this:
     ```sh
     fetch(`${endpoint}recyclable_items`, {
     ```        
+
+# TESTING API'S IN POSTMAN
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/YOUR_COLLECTION_ID)
+
+# Tech / Framework Used
+
+- [Design Doc](https://www.figma.com/board/kgmZK81UbmjyKW6mE7Ls4G/Second-Life-Recycling?node-id=0-1&t=5URe1Z2E3YmS0s5p-0)
+- [Data Flow Chart](https://dbdiagram.io/d/Copy-of-recycle_app_2_v-669082739939893daeb7a84b)
+- [Deployed Project](URL)
+- [Issue Tickets](https://github.com/frankcampos/second-life-recycling-server/issues)
+
+### BUIT WITH 
+- React
+- Django
+- SQL
+- Firebase
+
+# Credits
+
+- Daun Kim - Full CRUD for Shopping Cart 
+- Frank Campos - User login and Full CRUD 
+- Jesse Ramirez - Full CRUD for items 
