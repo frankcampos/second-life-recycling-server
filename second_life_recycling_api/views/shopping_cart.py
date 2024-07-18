@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from second_life_recycling_api.models import User, Shopping_Cart, Recyclable_Items, CartItem
 from rest_framework.decorators import action
- 
+from .recyclable_items import RecyclableItemsSerializer
+
 class CartSerializer(serializers.ModelSerializer):
   """JSON serializer for shopping carts"""
   class Meta:
@@ -75,6 +76,7 @@ class ShoppingCartView(ViewSet):
     """post req for user to add item to cart"""
       
     user = User.objects.get(id=request.data["userId"])
+    item = Recyclable_Items.objects.get(id=request.data["itemId"])
     try: 
       cart = Shopping_Cart.objects.get(user=user)
     except:
@@ -91,16 +93,20 @@ class ShoppingCartView(ViewSet):
       item = Recyclable_Items.objects.get(id = request.data["itemId"])
     )
     serializer = CartSerializer(cart)
-    return Response(serializer.data)
+    item_serializer = RecyclableItemsSerializer(item)
+    return Response({'cart':serializer.data, 'item': item_serializer.data})
   
 
-  @action(methods=['delete'], detail=True)
-  def remove_from_cart(self, request, pk):
-        """post req for user to remove an item from the cart"""
-        
-        cart = Shopping_Cart.objects.get(uid=request.data["userId"])
-        item = Recyclable_Items.objects.get(pk=pk)
-        cart_item = CartItem.objects.get(item_id=item.id, cart_id=cart.id)
-        cart_item.delete()
-        
-        return Response({'message': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
+  @action(methods=['post'], detail=False, url_path="remove_from_cart")
+  def remove_from_cart(self, request, pk=None):
+    """post req for user to remove an item from the cart"""
+    try:
+      shopping_cart_id = request.data.get('shopping_cart_id')
+      item_id = request.data.get('item_id')   
+      cart = Shopping_Cart.objects.get(id=shopping_cart_id)  
+      cart_item = CartItem.objects.get(cart = cart, item_id = item_id)
+      cart_item.delete()
+      serializer = CartSerializer(cart)
+      return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+    except CartItem.DoesNotExist as ex: 
+      return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
