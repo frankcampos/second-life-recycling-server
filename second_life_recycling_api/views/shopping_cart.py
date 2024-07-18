@@ -94,13 +94,16 @@ class ShoppingCartView(ViewSet):
     return Response(serializer.data)
   
 
-  @action(methods=['delete'], detail=True)
-  def remove_from_cart(self, request, pk):
-        """post req for user to remove an item from the cart"""
-        
-        cart = Shopping_Cart.objects.get(uid=request.data["userId"])
-        item = Recyclable_Items.objects.get(pk=pk)
-        cart_item = CartItem.objects.get(item_id=item.id, cart_id=cart.id)
-        cart_item.delete()
-        
-        return Response({'message': 'Item removed from cart'}, status=status.HTTP_204_NO_CONTENT)
+  @action(methods=['post'], detail=False, url_path="remove_from_cart")
+  def remove_from_cart(self, request, pk=None):
+    """post req for user to remove an item from the cart"""
+    try:
+      shopping_cart_id = request.data.get('shopping_cart_id')
+      item_id = request.data.get('item_id')   
+      cart = Shopping_Cart.objects.get(id=shopping_cart_id)  
+      cart_item = CartItem.objects.get(cart = cart, item_id = item_id)
+      cart_item.delete()
+      serializer = CartSerializer(cart)
+      return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+    except CartItem.DoesNotExist as ex: 
+      return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
