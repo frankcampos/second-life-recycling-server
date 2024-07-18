@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from second_life_recycling_api.views import check_user, register_user, ShoppingCartView
+from second_life_recycling_api.views import check_user, register_user, ShoppingCartView, RecyclableItemViewSet,CompanyView,ShoppingCartView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'cart', ShoppingCartView, 'cart')
+router.register(r'recyclable_items', RecyclableItemViewSet, 'recyclable_items')
+router.register(r'company', CompanyView, 'company')
+router.register(r'shopping_cart', ShoppingCartView, 'shopping_cart')
 urlpatterns = [
     path('', include(router.urls)),
     path("admin/", admin.site.urls),
