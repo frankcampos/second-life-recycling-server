@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import serializers, status
 from second_life_recycling_api.models import User, Shopping_Cart, Recyclable_Items, CartItem
 from rest_framework.decorators import action
- 
+from .recyclable_items import RecyclableItemsSerializer
+
 class CartSerializer(serializers.ModelSerializer):
   """JSON serializer for shopping carts"""
   class Meta:
@@ -75,6 +76,7 @@ class ShoppingCartView(ViewSet):
     """post req for user to add item to cart"""
       
     user = User.objects.get(id=request.data["userId"])
+    item = Recyclable_Items.objects.get(id=request.data["itemId"])
     try: 
       cart = Shopping_Cart.objects.get(user=user)
     except:
@@ -91,7 +93,8 @@ class ShoppingCartView(ViewSet):
       item = Recyclable_Items.objects.get(id = request.data["itemId"])
     )
     serializer = CartSerializer(cart)
-    return Response(serializer.data)
+    item_serializer = RecyclableItemsSerializer(item)
+    return Response({'cart':serializer.data, 'item': item_serializer.data})
   
 
   @action(methods=['post'], detail=False, url_path="remove_from_cart")
