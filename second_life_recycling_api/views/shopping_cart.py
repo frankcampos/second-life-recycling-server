@@ -13,6 +13,15 @@ class CartSerializer(serializers.ModelSerializer):
     model = Shopping_Cart
     fields = ('user', 'status', 'total', 'created_at', 'updated_at')
     depth = 1
+    
+class CartItemSerializer(serializers.ModelSerializer):
+  """JSON serializer for cart items"""
+  
+  class Meta:
+    model = CartItem
+    fields = '__all__'
+    depth = 1
+  
 class ShoppingCartView(ViewSet):
   """Shopping cart view"""
   
@@ -110,3 +119,12 @@ class ShoppingCartView(ViewSet):
       return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
     except CartItem.DoesNotExist as ex: 
       return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+    
+  @action(methods=['post'], detail=False)
+  def display_item(self, request, pk=None):
+    """post request to display items in shopping cart"""
+    shopping_cart_id = request.data.get('shopping_cart_id')
+    cart = Shopping_Cart.objects.get(id=shopping_cart_id)
+    item = CartItem.objects.filter(cart = cart)
+    item_serializer = CartItemSerializer(item, many=True)
+    return Response(item_serializer.data, status=status.HTTP_204_NO_CONTENT)
