@@ -7,3 +7,7 @@ class Shopping_Cart(models.Model):
     total = models.DecimalField(default=0, max_digits=17, decimal_places=2)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    @property
+    def total(self):
+        return sum(item.item.price for item in self.cart_items.all())
