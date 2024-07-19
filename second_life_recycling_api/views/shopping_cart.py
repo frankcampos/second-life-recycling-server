@@ -127,4 +127,12 @@ class ShoppingCartView(ViewSet):
     cart = Shopping_Cart.objects.get(id=shopping_cart_id)
     item = CartItem.objects.filter(cart = cart)
     item_serializer = CartItemSerializer(item, many=True)
-    return Response(item_serializer.data, status=status.HTTP_204_NO_CONTENT)
+    
+    response_data = {
+        'cart_items': item_serializer.data,
+        'total': cart.total
+    }
+    
+    return Response(response_data, status=status.HTTP_204_NO_CONTENT)
+  
+    
