@@ -49,7 +49,7 @@ class RecyclableItems(ViewSet):
     def create(self, request):
         user_id = request.data.get("user_id", None)
         vendor = Vendors.objects.get(pk=request.data["vendor_id"])
-        category = Categories.objects.get(pk=request.data["category_id"])
+        category = Categories.objects.get(pk=request.data["category"])
         user, created = User.objects.get_or_create(id=user_id)
         recyclable_item = Recyclable_Items.objects.create(
             item_name=request.data["item_name"],
