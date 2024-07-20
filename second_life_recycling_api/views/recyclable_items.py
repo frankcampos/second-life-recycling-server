@@ -68,7 +68,7 @@ class RecyclableItems(ViewSet):
     def update(self, request, pk):
         recyclable_item = Recyclable_Items.objects.get(pk=pk)
         recyclable_item.item_name = request.data["item_name"]
-        vendors = Vendors.objects.get(pk=request.data.get("vendors_id"))
+        vendors = Vendors.objects.get(pk=request.data.get("vendor_id"))
         recyclable_item.vendor = vendors
         recyclable_item.price = request.data["price"]
         recyclable_item.image_url = request.data["image_url"]
