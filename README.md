@@ -109,6 +109,8 @@ Follow these steps to set up and run the project:
 - [Data Flow Chart](https://dbdiagram.io/d/Copy-of-recycle_app_2_v-669082739939893daeb7a84b)
 - [Deployed Project](URL)
 - [Issue Tickets](https://github.com/frankcampos/second-life-recycling-server/issues)
+- [API Documentation](https://documenter.getpostman.com/view/29856352/2sA3kUGhS4)
+
 
 ### BUIT WITH 
 - React
