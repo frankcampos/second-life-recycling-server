@@ -75,7 +75,7 @@ class RecyclableItems(ViewSet):
         user_id = User.objects.get(pk=request.data.get("user_id"))
         recyclable_item.user_id = user_id
         recyclable_item.description = request.data["description"]
-        categories = Categories.objects.get(pk=request.data.get("category_id"))
+        categories = Categories.objects.get(pk=request.data["category"])
         recyclable_item.category = categories
         recyclable_item.created_at = request.data["created_at"]
         recyclable_item.updated_at = request.data["updated_at"]
