@@ -83,7 +83,7 @@ Follow these steps to set up and run the project:
     ```
 
 ## HOW TO FLUSH A DATABASE
-### ONLY DO THIS IF YOU KNOW YOU HAVE ALL OF THE MODELS AND DATA. THIS COMMAND REMOVES PK's 
+### ONLY DO THIS IF YOU KNOW YOU ARE HAVING ID ERRORS WHEN TRYING TO LOAD FIXTURES. THIS COMMAND REMOVES ALL DATA FROM YOUR SQLITE DATABASE. THIS IS A HARD RESET TO ZERO.  
 1. Flush the database with the flush command
     ```sh
     python manage.py flush
