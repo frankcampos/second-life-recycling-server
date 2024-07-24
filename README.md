@@ -82,6 +82,19 @@ Follow these steps to set up and run the project:
     click play to the right of item name
     ```
 
+## HOW TO FLUSH A DATABASE
+### ONLY DO THIS IF YOU KNOW YOU HAVE ALL OF THE MODELS AND DATA. THIS COMMAND REMOVES PK's 
+1. Flush the database with the flush command
+    ```sh
+    python manage.py flush
+    ```
+2. Confirm you want to flush the database
+    ```sh
+    yes
+    ```
+3. See Load Fixures above.
+
+
 ## HOW TO CALL ENDPOINTS IN REACT
 1. Ensure that your .env file has the following items in it:
     ```sh

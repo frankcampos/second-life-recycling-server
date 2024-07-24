@@ -16,5 +16,11 @@
     "fields": {
         "category_name": "Furniture"
     }
+ },
+ {
+    "model": "second_life_recycling_api.categories",
+    "fields": {
+        "category_name": "Mirrors"
+    }
  }         
 ]
