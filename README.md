@@ -96,7 +96,7 @@ Follow these steps to set up and run the project:
 
 
 ## HOW TO CALL ENDPOINTS IN REACT
-1. Ensure that your .env file has the following items in it:
+1. Ensure that your .env file has the following items in it: these can be found on firebase under project settings 
     ```sh
     NEXT_PUBLIC_FIREBASE_API_KEY=""
     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=""
