@@ -40,5 +40,47 @@
                 "created_at": "2024-12-07T01:00:00Z",
                 "updated_at": "2024-12-07T01:30:00Z"
         }
+    },
+    {
+        "model": "second_life_recycling_api.recyclable_items",
+        "fields": {
+            "item_name": "Vintage Lamp",
+            "vendor_id": "3",
+            "price": "75",
+            "image_url": "https://i.etsystatic.com/5898503/r/il/d4894a/5362691498/il_570xN.5362691498_h866.jpg",
+            "user_id": 2,
+            "description": "Vintage desk lamp from the 1950s",
+            "category": 4,
+            "created_at": "2024-12-08T10:00:00Z",
+            "updated_at": "2024-12-08T10:30:00Z"
+        }
+    },
+    {
+        "model": "second_life_recycling_api.recyclable_items",
+        "fields": {
+            "item_name": "Antique Mirror",
+            "vendor_id": "4",
+            "price": "120",
+            "image_url": "https://www.mobilidelpassato.com/wp/wp-content/uploads/2023/03/32333302_datamatics.jpg",
+            "user_id": 2,
+            "description": "Antique wall mirror in golden frame",
+            "category": 5,
+            "created_at": "2024-12-08T11:00:00Z",
+            "updated_at": "2024-12-08T11:30:00Z"
+        }
+    },
+    {
+        "model": "second_life_recycling_api.recyclable_items",
+        "fields": {
+            "item_name": "Wooden Bookshelf",
+            "vendor_id": "5",
+            "price": "100",
+            "image_url": "https://strongoakswoodshop.com/cdn/shop/products/il_fullxfull.5304949058_h8cb_750x810.jpg?v=1703101690",
+            "user_id": 3,
+            "description": "Tall wooden bookshelf with three shelves",
+            "category": 6,
+            "created_at": "2024-12-08T12:00:00Z",
+            "updated_at": "2024-12-08T12:30:00Z"
+        }
     }
 ]
