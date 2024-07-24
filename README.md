@@ -84,7 +84,7 @@ Follow these steps to set up and run the project:
 
 ## HOW TO FLUSH A DATABASE
 ### ONLY DO THIS IF YOU KNOW YOU ARE HAVING ID ERRORS WHEN TRYING TO LOAD FIXTURES. THIS COMMAND REMOVES ALL DATA FROM YOUR SQLITE DATABASE. THIS IS A HARD RESET TO ZERO.  
-1. Flush the database with the flush command
+1. Flush the database with the flush command in the terminal
     ```sh
     python manage.py flush
     ```
@@ -107,7 +107,7 @@ Follow these steps to set up and run the project:
     ```sh
     const endpoint = process.env.NEXT_PUBLIC_DATABASE_URL;
     ```
-
+s
 3. Promise fetch call should look like this:
     ```sh
     fetch(`${endpoint}recyclable_items`, {
