@@ -130,4 +130,4 @@ class ShoppingCartView(ViewSet):
         'total': cart.total
     }
 
-    return Response(response_data, status=status.HTTP_204_NO_CONTENT)
+    return Response(response_data, status=status.HTTP_200_OK)
