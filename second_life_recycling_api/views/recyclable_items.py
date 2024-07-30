@@ -6,13 +6,14 @@ from rest_framework import serializers, status
 from django.db import models
 from datetime import datetime
 from second_life_recycling_api.models import Recyclable_Items, User, Vendors, Categories
-from second_life_recycling_api.views.auth import check_user 
+from second_life_recycling_api.views.auth import check_user
 
 class RecyclableItemsSerializer(serializers.ModelSerializer):
     """JSON serializer for Recyclable Items types"""
     class Meta:
         model = Recyclable_Items
         fields = ('id', 'item_name','vendor', 'price', 'image_url', 'user_id', 'description', "category", 'created_at', 'updated_at')
+        depth = 1
 
 class RecyclableItems(ViewSet):
     """Level up recyclable items types view"""
@@ -42,10 +43,10 @@ class RecyclableItems(ViewSet):
             games = games.filter(vendor_id=vendor_id)
         category_id = request.query_params.get("type", None)
         if category_id is not None:
-            games = games.filter(vendor_id=vendor_id)    
+            games = games.filter(vendor_id=vendor_id)
         serializer = RecyclableItemsSerializer(recyclable_items, many=True)
         return Response(serializer.data)
-        
+
     def create(self, request):
         user_id = request.data.get("user_id", None)
         vendor = Vendors.objects.get(pk=request.data["vendor_id"])
@@ -64,7 +65,7 @@ class RecyclableItems(ViewSet):
         )
         serializer = RecyclableItemsSerializer(recyclable_item)
         return Response(serializer.data)
-     
+
     def update(self, request, pk):
         recyclable_item = Recyclable_Items.objects.get(pk=pk)
         recyclable_item.item_name = request.data["item_name"]
@@ -82,10 +83,10 @@ class RecyclableItems(ViewSet):
         recyclable_item.save()
 
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
+
     queryset = Recyclable_Items.objects.all()
     serializer_class = RecyclableItemsSerializer
-    
+
     def destroy(self, request, pk):
         try:
             recyclable_item = Recyclable_Items.objects.get(pk=pk)
