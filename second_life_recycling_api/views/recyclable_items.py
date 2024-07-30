@@ -63,7 +63,7 @@ class RecyclableItems(ViewSet):
             updated_at=timezone.now(),
         )
         serializer = RecyclableItemsSerializer(recyclable_item)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED) 
      
     def update(self, request, pk):
         recyclable_item = Recyclable_Items.objects.get(pk=pk)
