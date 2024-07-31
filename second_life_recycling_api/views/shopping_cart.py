@@ -110,7 +110,7 @@ class ShoppingCartView(ViewSet):
       shopping_cart_id = request.data.get('shopping_cart_id')
       item_id = request.data.get('item_id')
       cart = Shopping_Cart.objects.get(id=shopping_cart_id)
-      cart_item = CartItem.objects.get(cart = cart, item_id = item_id)
+      cart_item = CartItem.objects.filter(cart = cart, item_id = item_id)
       cart_item.delete()
       serializer = CartSerializer(cart)
       return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
