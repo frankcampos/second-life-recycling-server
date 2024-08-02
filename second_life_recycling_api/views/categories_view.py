@@ -60,4 +60,5 @@ class CategoriesSerializer(serializers.ModelSerializer):
     """JSON serializer for vendors"""
     class Meta:
         model = Categories
-        fields = ('category_name',)
+        fields = ['category_name','id']
+    
