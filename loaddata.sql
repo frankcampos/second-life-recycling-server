@@ -1,1 +1,1 @@
-pe
+DELETE FROM second_life_recycling_api_shopping_cart

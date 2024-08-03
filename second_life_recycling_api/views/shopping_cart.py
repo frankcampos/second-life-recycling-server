@@ -88,21 +88,27 @@ class ShoppingCartView(ViewSet):
         user = User.objects.get(id=request.data["userId"])
         item = Recyclable_Items.objects.get(id=request.data["itemId"])
         try:
-            cart = Shopping_Cart.objects.get(user=user)
-            if cart.status == False:
-              cart = Shopping_Cart.objects.create(
-                user=user,
-                status=True,
-            )
+            carts = Shopping_Cart.objects.filter(user=user, status=True)
+            cart = None
+            for c in carts:
+                if c.status == True:
+                    cart = c
+                    break
+
+            if cart is None:
+                cart = Shopping_Cart.objects.create(
+                    user=user,
+                    status=True,
+                )
 
         except Shopping_Cart.DoesNotExist as ex:
-          return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
-        cart.save()
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
         CartItem.objects.create(
-          cart=cart,
-            item=Recyclable_Items.objects.get(id=request.data["itemId"])
-          ) 
-          
+            cart=cart,
+            item=item
+        )
+
         serializer = CartSerializer(cart)
         item_serializer = RecyclableItemsSerializer(item)
         return Response({'cart': serializer.data, 'item': item_serializer.data})
