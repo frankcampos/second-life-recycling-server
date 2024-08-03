@@ -18,11 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from second_life_recycling_api.views import check_user, register_user, RecyclableItems, ShoppingCartView, VendorsView, CategoriesView
+from second_life_recycling_api.views import check_user, register_user, RecyclableItemsViewSet, ShoppingCartView, VendorsView, CategoriesView
 
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'recyclable_items', RecyclableItems, basename='recyclable_items')
+router.register(r'recyclable_items', RecyclableItemsViewSet)
 router.register(r'cart', ShoppingCartView, 'cart')
 router.register(r'vendors', VendorsView, 'vendors')
 router.register(r'categories', CategoriesView, 'categories')
