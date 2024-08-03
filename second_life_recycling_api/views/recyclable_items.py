@@ -2,7 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from django.http import HttpResponseServerError
 from django.utils import timezone
-
+from second_life_recycling_api.models import Vendors, Categories, Recyclable_Items
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.db import models
@@ -14,7 +14,7 @@ class RecyclableItemsSerializer(serializers.ModelSerializer):
     """JSON serializer for Recyclable Items types"""
     class Meta:
         model = Recyclable_Items
-        fields = ('id', 'item_name', 'vendor_id', 'price', 'image_url', 'user_id', 'description', 'category_id', 'created_at', 'updated_at')
+        fields = ('id', 'item_name', 'vendor', 'price', 'image_url', 'user_id', 'description', 'category', 'created_at', 'updated_at')
         depth = 1
         
 class RecyclableItemsViewSet(viewsets.ModelViewSet):
@@ -52,61 +52,31 @@ class RecyclableItemsViewSet(viewsets.ModelViewSet):
         serializer = RecyclableItemsSerializer(recyclable_items, many=True)
         return Response(serializer.data)
 
-    def create(self, request):
+    def create(self, request, *args, **kwargs):
+        user_id = request.data.get("user_id", None)
+        user, created = User.objects.get_or_create(id=user_id)
+
+        vendor_id = request.data.get("vendor_id")
+        vendor = Vendors.objects.get(pk=vendor_id)
+
+        category_id = request.data.get("category_id")        
         try:
-            print(f"Incoming data: {request.data}")
-            
-            user_id = request.data.get("user_id", None)
-            vendor_id = request.data.get("vendor_id")
-            category_id = request.data.get("category_id")
-    
-            if not vendor_id:
-                print("Vendor ID is missing.")
-                return Response({'message': 'Vendor ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
-            if not category_id:
-                print("Category ID is missing.")
-                return Response({'message': 'Category ID is required.'}, status=status.HTTP_400_BAD_REQUEST)
-    
-            try:
-                vendor = Vendors.objects.get(pk=vendor_id)
-                print(f"Vendor found: {vendor}")
-            except Vendors.DoesNotExist:
-                print("Vendor not found.")
-                return Response({'message': 'Vendor not found.'}, status=status.HTTP_404_NOT_FOUND)
-    
-            try:
-                category = Categories.objects.get(pk=category_id)
-                print(f"Category found: {category}")
-            except Categories.DoesNotExist:
-                print("Category not found.")
-                return Response({'message': 'Category not found.'}, status=status.HTTP_404_NOT_FOUND)
-    
-            user, created = User.objects.get_or_create(id=user_id)
-            print(f"User found or created: {user}")
-    
-            recyclable_item = Recyclable_Items.objects.create(
-                item_name=request.data["item_name"],
-                vendor=vendor,
-                price=request.data["price"],
-                image_url=request.data["image_url"],
-                user=user,
-                description=request.data["description"],
-                category=category,
-                created_at=timezone.now(),
-                updated_at=timezone.now(),
-            )
-            print(f"Recyclable item created: {recyclable_item}")
-    
-            serializer = RecyclableItemsSerializer(recyclable_item)
-            print(f"Serialized data: {serializer.data}")
-    
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            print(f"Error: {str(e)}")
-            return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            category = Categories.objects.get(pk=category_id)
+        except Categories.DoesNotExist:
+            return Response({'message': 'Category not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data.copy()
+        data['user'] = user.id
+        data['vendor'] = vendor.id
+        data['category'] = category.id
+
+        serializer = RecyclableItemsSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Recyclable item created"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     def update(self, request, *args, **kwargs):
-        print(f"Incoming data: {request.data}")
         try:
             instance = self.get_object()
             vendor_id = request.data.get("vendor_id")
@@ -150,4 +120,4 @@ class RecyclableItemsViewSet(viewsets.ModelViewSet):
             recyclable_item.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Recyclable_Items.DoesNotExist:
-            return Response({'message': 'Recyclable Item not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(recyclable_item.errors, status=status.HTTP_404_NOT_FOUND)
