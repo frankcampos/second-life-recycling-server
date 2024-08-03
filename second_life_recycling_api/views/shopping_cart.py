@@ -89,16 +89,20 @@ class ShoppingCartView(ViewSet):
         item = Recyclable_Items.objects.get(id=request.data["itemId"])
         try:
             cart = Shopping_Cart.objects.get(user=user)
-        except:
-            cart = Shopping_Cart.objects.create(
+            if cart.status == False:
+              cart = Shopping_Cart.objects.create(
                 user=user,
                 status=True,
             )
+
+        except Shopping_Cart.DoesNotExist as ex:
+          return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
         cart.save()
         CartItem.objects.create(
-            cart=cart,
+          cart=cart,
             item=Recyclable_Items.objects.get(id=request.data["itemId"])
-        )
+          ) 
+          
         serializer = CartSerializer(cart)
         item_serializer = RecyclableItemsSerializer(item)
         return Response({'cart': serializer.data, 'item': item_serializer.data})
@@ -133,7 +137,6 @@ class ShoppingCartView(ViewSet):
         return Response(response_data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False, url_path="checkout")
-    # Need to create a new cart
     def checkout(self, request, pk=None):
       shopping_cart_id = request.data.get('shopping_cart_id')
       cart = Shopping_Cart.objects.get(id=shopping_cart_id)
