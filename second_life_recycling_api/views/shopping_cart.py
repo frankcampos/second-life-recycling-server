@@ -133,13 +133,10 @@ class ShoppingCartView(ViewSet):
         return Response(response_data, status=status.HTTP_200_OK)
 
     @action(methods=['post'], detail=False, url_path="checkout")
-    # Get the cart ID
-    # Need to change status to false (closed)
     # Need to create a new cart
     def checkout(self, request, pk=None):
       shopping_cart_id = request.data.get('shopping_cart_id')
-      user = User.objects.get(id=request.data["userId"])
-      cart = Shopping_Cart.objects.create(
-          user=user,
-          status=True,
-      )
+      cart = Shopping_Cart.objects.get(id=shopping_cart_id)
+      cart.status = False
+      cart.save()
+      return Response({'message': 'Thank you for your order.'}, status=status.HTTP_200_OK)
