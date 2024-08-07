@@ -29,12 +29,12 @@ class CategoriesView(ViewSet):
         Returns:
             Response -- JSON serialized list of categories
         """
-        try:
-            category = Categories.objects.all()
-            serializer = CategoriesSerializer(category, many=True)
-            return Response(serializer.data)
-        except Categories.DoesNotExist as ex:
-            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+        category = Categories.objects.all()
+        if not category.exists():
+            return Response({'message': 'Category not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CategoriesSerializer(category, many=True)
+        return Response(serializer.data)
     # create a new category
     def create (self, request):
         new_category = Categories()
