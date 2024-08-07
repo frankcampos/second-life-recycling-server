@@ -12,7 +12,7 @@ class CartSerializer(serializers.ModelSerializer):
     """JSON serializer for shopping carts"""
     class Meta:
         model = Shopping_Cart
-        fields = ('user', 'status', 'total', 'created_at', 'updated_at')
+        fields = ('id','user', 'status', 'total', 'created_at', 'updated_at')
         depth = 1
 
 

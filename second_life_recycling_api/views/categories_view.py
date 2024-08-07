@@ -9,7 +9,7 @@ from second_life_recycling_api.models import Categories
 class CategoriesView(ViewSet):
     """Second Life Recycling Categories view"""
 
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, pk):
         """Handle GET requests for single category
 
         Returns:
@@ -61,4 +61,3 @@ class CategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categories
         fields = ['category_name','id']
-    
