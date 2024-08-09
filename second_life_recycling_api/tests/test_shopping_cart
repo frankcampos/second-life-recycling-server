@@ -1,0 +1,65 @@
+from rest_framework import status
+from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
+from second_life_recycling_api.models import Shopping_Cart, CartItem, Recyclable_Items, User
+from second_life_recycling_api.views.shopping_cart import CartSerializer
+
+
+class ShoppingCartTests(APITestCase):
+
+    fixtures = ['categories', 'recyclable_items', 'users', 'vendors']
+
+    def setUp(self):
+        self.user = User.objects.first()
+
+    def test_list_carts(self):
+        """Test list shopping carts"""
+        url = '/cart'
+        response = self.client.get(url)
+
+        all_carts = Shopping_Cart.objects.all()
+        expected = CartSerializer(all_carts, many=True)
+
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        self.assertEqual(expected.data, response.data)
+
+    def test_add_item_to_cart(self):
+        """Add item to cart Test"""
+        url = f'/cart/add_to_cart'
+        add_item = {
+            "userId": self.user.id,
+            "itemId": self.item.id
+        }
+
+        response = self.client.post(url, add_item, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        cart = Shopping_Cart.objects.get(user=self.user, status=True)
+        self.assertEqual(cart.cart_items.count(), 2)
+
+    def test_remove_item(self):
+        """Test delete item from cart"""
+        url = f'/cart/remove_from_cart'
+        item = {
+            "shopping_cart_id": self.cart.id,
+            "item_id": self.item.id
+        }
+        response = self.client.post(
+            ('shopping_cart-remove_from_cart'), item, format='json')
+        self.assertEqual(status.HTTP_204_NO_CONTENT, response.status_code)
+        self.assertEqual(self.cart.cart_items.count(), 0)
+
+    def test_checkout(self):
+        """Test shopping cart checkout"""
+        url = '/cart/checkout'
+        response = self.client.get(url)
+
+        cart_checkout = {
+            "shopping_cart_id": self.cart.id
+        }
+
+        response = self.client.post(url, cart_checkout, format='json')
+
+        new_cart = Shopping_Cart.objects.last()
+        expected = CartSerializer(new_cart)
+        self.assertEqual(expected.data, response.data)
